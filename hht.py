@@ -23,6 +23,13 @@ def prescreen(pid, pswriter):
 
     pswriter.writerow([pid, age, issues])
 
+def get_rate():
+    rate = input("On a scale of 0 - 4 how clearly did you hear the sound? 0 - I did not hear anything, 4 - I heard it very clearly\n")
+    if(rate != '0' and rate != '1' and rate != '2' and rate != '3' and rate != '4'):
+        print("Invalid Input\n")
+        rate = get_rate()
+    return rate
+
 def hearing_test(pid, freqs, htwriter):
     for i in range(len(freqs)):
         print("Playing sound...\n")
@@ -33,7 +40,7 @@ def hearing_test(pid, freqs, htwriter):
         playsound('audio/' + freqs[x] + 'Hz.mp3')
         time.sleep(5 - wait)
 
-        rate = input("On a scale of 0 - 4 how clearly did you hear the sound? 0 - I did not hear anything, 4 - I heard it very clearly\n")
+        rate = get_rate()
         htwriter.writerow([pid, freqs[x], rate])
         freqs.pop(x)
 
